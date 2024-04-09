@@ -32,8 +32,10 @@ quadrant_docsearch = Qdrant.from_documents(
     collection_name="book"
 )
 
+llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+
 qa = RetrievalQA.from_chain_type(
-    llm=OpenAI(), chain_type="stuff", retriever=quadrant_docsearch.as_retriever(), return_source_documents=True)
+    llm, chain_type="stuff", retriever=quadrant_docsearch.as_retriever(), return_source_documents=True)
 
 while True:
     user_input = input("Hi im an AI librarian what can I help you with?\n")
